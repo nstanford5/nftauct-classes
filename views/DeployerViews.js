@@ -45,8 +45,8 @@ exports.ShowOutcome = class extends React.Component{
     const {winAdd, highBid, standardUnit} = this.props;
     return(
       <div className="Sale">
-        <h5>Winning Address: {winAdd}</h5>
-        <h5>Winning Bid: {highBid} {standardUnit}S</h5>
+        <h5>Winning Address: <br/> {winAdd}</h5>
+        <h5>Winning Bid: <br/>{highBid} {standardUnit}S</h5>
       </div>
     );
   }
@@ -87,9 +87,11 @@ exports.WaitingForAttacher = class extends React.Component {
   }
   render() {
     const {ctcInfoStr, amt} = this.props;
-    const {ready} = this.props || {};
+    const {ready} = this.props || 'false';
     return (
       <div className="Game">
+        Auction Ready: {ready}
+        <br />
         Current bid: {amt}
         <br />
         <button 

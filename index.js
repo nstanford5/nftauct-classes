@@ -27,7 +27,7 @@ class App extends React.Component{
   }
   async start() {this.setState({view: 'DeployerOrAttacher'}); }
   selectCreator() {
-    this.setState({view: 'Wrapper', ContentView: Creator});
+    this.setState({view: 'Wrapper', ContentView: Creator, ready: 'false'});
   }
   selectBidder(){
     this.setState({view: 'Wrapper', ContentView: Bidder});
@@ -60,7 +60,7 @@ class Creator extends React.Component{
     return params;
   }
   auctionReady() {
-    this.setState({ready: true});
+    this.setState({ready: 'true'});
     console.log(this.state.ctc);
     console.log('Auction Ready');
   }
