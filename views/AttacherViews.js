@@ -52,15 +52,16 @@ exports.Attaching = class extends React.Component {
 exports.Bid = class extends React.Component {
   render() {
     // implement current bid here
-    const {standardUnit, parent, defaultMin} = this.props;
+    const {standardUnit, parent, defaultMin, amt} = this.props;
     const {disabled} = this.state || {};
     const min = (this.state || {}).min || defaultMin;
     const bid = (this.state || {}).bid || defaultMin;
     return (
       <div className="Sale">
+        {/* Add view for NFTid here */}
         <br /> NFT ID: 
         <br /> Min bid: {min} {standardUnit}S
-        <br /> Current Bid: {bid} {standardUnit}S
+        <br /> Current Bid: {amt} {standardUnit}S
         <br />
         <input 
           type='number'
