@@ -7,12 +7,21 @@ exports.Wrapper = class extends React.Component {
   render() {
     const {content} = this.props;
     return(
-        <div className="App">
-        <header className="App-header" id="root">
-          <img src={logo} className='App-logo' alt='logo'/>
-          <h1>NFT Auction</h1>
-          {content}
-        </header>
+      <div className='background-container'>
+        <div className='stars'>
+          <div className='twinkling'>
+          <img className='img' src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt=""></img>
+            <div className='clouds'>
+              <div className='App'>
+                <header className='App-header' id='root'>
+                <img src={logo} className='App-logo' alt='logo'/>
+                <h2>NFT Auction</h2>
+                {content}
+                </header>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -51,7 +60,6 @@ exports.Intro = class extends React.Component {
     const {parent} = this.props;
     return (
       <div className="Sale">
-        <h2>Reach NFT Auction</h2>
         <button onClick={() => parent.start()}>Get Started</button>
       </div>
     );

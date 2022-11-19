@@ -8,7 +8,7 @@ exports.Wrapper = class extends React.Component{
     const {content} = this.props;
     return(
       <div className='Attacher'>
-        <h2>Bid on NFT</h2>
+        Bid on NFT
         {content}
       </div>
     );
@@ -58,7 +58,6 @@ exports.Bid = class extends React.Component {
     const bid = (this.state || {}).bid || defaultMin;
     return (
       <div className="Sale">
-        <h3>Sale Info</h3>
         <br /> NFT ID: 
         <br /> Min bid: {min} {standardUnit}S
         <br /> Current Bid: {bid} {standardUnit}S

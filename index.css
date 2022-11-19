@@ -13,7 +13,7 @@ code {
 }
 .App {
   text-align: center;
-  background-color: lightblue;
+  /* background-color: lightblue; */
 }
 
 .App-header {
@@ -23,9 +23,7 @@ code {
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: black;
-  background-color: powderblue;
-  
+  color: white;  
 }
 
 .App-link {
@@ -35,6 +33,7 @@ code {
 
 .App-logo {
   height: 45vmin;
+  position: sticky;
   pointer-events: none;
   color: black;
 }
@@ -61,7 +60,7 @@ code {
 }
 
 .Sale{
-  color: black;
+  color: white;
   padding: 30px; 
 }
 
@@ -73,7 +72,7 @@ input[type=number] {
 
 button {
   font-size: calc(10px + 2vmin);
-  background-color:  lightyellow;
+  background-color:  whitesmoke;
   width: calc(15px +2vmin);
   border-radius: 12px;
 }
@@ -110,38 +109,10 @@ textarea {
   white-space: pre;
 }
 
-/* @keyframes move-background{
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  } to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
-}
-@-webkit-keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  } to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
-}
-
-@-moz-keyframes move-background{
-  from{
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  } to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
-}
-
-@-webkit-keyframes move-background{
-  from{
-    -webkit-transform: translate3d(0px, 0px, 0px);
-  } to {
-    -webkit-transform: translate3d(1000px, 0px, 0px);
-  }
-}
-.backgroun-container{
-  position: fixed;
+.background-container{
+  background-size: cover;
+  background-attachment: scroll;
+  overflow-x: scroll;
   top: 0;
   left: 0;
   bottom: 0;
@@ -149,7 +120,10 @@ textarea {
 }
 
 .stars{
-  background: black url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
+  background: black url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png") repeat;
+  background-size: cover;
+  background-attachment: scroll;
+  overflow-x: auto;
   position: absolute;
     top: 0;
     bottom: 0;
@@ -160,44 +134,36 @@ textarea {
 }
 
 .twinkling{
-  width: 10000px;
+  width: 100%;
   height: 100%;
   background: transparent url("https://s3-us-west-2.amazonaws.com/s/cdpn.io/twinkling.png") repeat;
-  background-size: 1000px 1000px;
+  background-attachment: scroll;
+  background-size: cover;
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
     z-index: 2;
-
-    -moz-animation:move-background 70s linear infinite;
-    -ms-animation:move-background 70s linear infinite;
-    -o-animation:move-background 70s linear infinite;
-    -webkit-animation:move-background 70s linear infinite;
-    animation:move-background 70s linear infinite;
 }
 
 .clouds{
-  width:10000px;
+  width: 100%;
   height: 100%;
   background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/clouds_repeat.png") repeat;
-  background-size: 1000px 1000px;
+  background-attachment: scroll;
+  overflow-y: auto;
+  background-size: cover;
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
     z-index: 3;
-
-    -moz-animation:move-background 150s linear infinite;
-    -ms-animation:move-background 150s linear infinite;
-    -o-animation:move-background 150s linear infinite;
-    -webkit-animation:move-background 150s linear infinite;
-    animation:move-background 150s linear infinite;
 }
+
 img{
-  height: 70vh;
-  width: 70vh;
+  height: 50vh;
+  width: 50vh;
   position: absolute;
   z-index: 3;
   right: 20px;
-} */
+}

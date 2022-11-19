@@ -10,7 +10,7 @@ exports.Wrapper = class extends React.Component{
     const {content} = this.props;
     return(
       <div className="Deployer">
-        <h2>Sell An NFT</h2>
+        Sell An NFT
         {content}
       </div>
     );
@@ -42,12 +42,11 @@ exports.SetInfo = class extends React.Component {
 
 exports.ShowOutcome = class extends React.Component{
   render() {
-    const {winAdd, highBid} = this.props;
+    const {winAdd, highBid, standardUnit} = this.props;
     return(
       <div className="Sale">
-        <h3>Winning Address: {winAdd}</h3>
-        <br />
-        <h3>Winning Bid: {highBid}</h3>
+        <h5>Winning Address: {winAdd}</h5>
+        <h5>Winning Bid: {highBid} {standardUnit}S</h5>
       </div>
     );
   }
@@ -91,19 +90,11 @@ exports.WaitingForAttacher = class extends React.Component {
     const {ready} = this.props || {};
     return (
       <div className="Game">
-        Ready for bids is {ready}
-        <br />
-        Waiting for Bids...
-        <br />
         Current bid: {amt}
         <br />
-        Please give them this contract info:
-        <pre className='ContractInfo'>
-          {ctcInfoStr}
-        </pre>
         <button 
-          onClick={(e) => this.copyToClipboard(e.currentTarget)}
-        >Copy to clipboard</button>
+          onClick={(e) => this.copyToClipboard(ctcInfoStr)}
+        >Copy Contract Info</button>
       </div>
     );
   }
