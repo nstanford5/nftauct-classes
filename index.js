@@ -85,10 +85,17 @@ class Bidder extends React.Component{
   }
   async attach(ctcInfoStr){
     const ctc2 = this.props.acc.contract(backend, JSON.parse(ctcInfoStr));
-    this.setState({view: 'Bid', ctc2: ctc2});
+    const tBid = await ctc2.v.min();
+    const mBid = stdlib.formatCurrency(stdlib.bigNumberToNumber(tBid[1]));
+    const tId = await ctc2.v.nft();
+    const nId = stdlib.bigNumberToNumber(tId[1]);
+    const tcBid = await ctc2.v.currBid();
+    const cBid = stdlib.formatCurrency(stdlib.bigNumberToNumber(tcBid[1]));
+    //console.log(`Current bid ${stdlib.formatCurrency(stdlib.bigNumberToNumber(cBid[1]))}`);
+    this.setState({view: 'Bid', ctc2: ctc2, mBid, nId, cBid});
   }
   async bidFunc() {
-    const tctc = this.state.ctc2;// this is undefined
+    const tctc = this.state.ctc2;
     const bid = stdlib.parseCurrency(this.state.bid);
     const [add, b] = await tctc.apis.Bidder.bid(bid);
     this.setState({
@@ -98,7 +105,6 @@ class Bidder extends React.Component{
   }
   async setBid(bid){
     this.setState({view: 'WaitingForTurn', bid});
-    console.log(this.state.bid);// this is undefined
   }
   render() {return renderView(this, AttacherViews); }
 }
