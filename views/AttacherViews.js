@@ -1,5 +1,6 @@
 import React from 'react';
 import PlayerViews from './PlayerViews.js';
+import logo from '../Flemish_Clone_0503.png';
 
 const exports = {...PlayerViews};
 
@@ -14,7 +15,6 @@ exports.Wrapper = class extends React.Component{
     );
   }
 }
-
 exports.Attach = class extends React.Component{
   render() {
     const {parent} = this.props;
@@ -38,7 +38,6 @@ exports.Attach = class extends React.Component{
     );
   }
 }
-
 exports.Attaching = class extends React.Component {
   render() {
     return (
@@ -48,16 +47,15 @@ exports.Attaching = class extends React.Component {
     );
   }
 }
-
 exports.Bid = class extends React.Component {
   render() {
     const {standardUnit, parent, mBid, nId, cBid} = this.props;
     const {disabled} = this.state || {};
     const bid = (this.state || {}).bid || 0;
     return (
-      <div className="Sale">
-        {/* Add view for NFTid here */}
-        <br /> NFT ID: {nId}
+      <div className="Sale" >
+        <img className="nftimg" src={logo}></img> 
+        <br /> ASA ID: {nId}
         <br /> Min bid: {mBid} {standardUnit}S
         <br /> Current Bid: {cBid} {standardUnit}S
         <br />
@@ -78,7 +76,6 @@ exports.Bid = class extends React.Component {
     );
   }
 }
-
 exports.WaitingForTurn = class extends React.Component{
   render() {
     const {parent} = this.props;
@@ -99,5 +96,4 @@ exports.WaitingForTurn = class extends React.Component{
     );
   }
 }
-
 export default exports;

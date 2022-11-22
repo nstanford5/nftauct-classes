@@ -36,6 +36,11 @@ code {
   pointer-events: none;
   color: black;
 }
+.nftimg {
+  /* height: 30vmin; */
+  position: relative;
+  pointer-events: auto;
+}
 
 @media (prefers-reduced-motion: no-preference){
   .App-logo{

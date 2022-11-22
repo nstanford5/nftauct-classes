@@ -22,12 +22,14 @@ class App extends React.Component{
     this.state = {view: 'ConnectAccount', ...defaults};
   }
   async componentDidMount(){
-    const acc = await stdlib.getDefaultAccount();
-    this.setState({view: 'Intro', acc});
+    //const acc = await stdlib.getDefaultAccount();
+    this.setState({view: 'Intro'});
   }
   async start() {this.setState({view: 'DeployerOrAttacher'}); }
-  selectCreator() {
-    this.setState({view: 'Wrapper', ContentView: Creator, ready: 'false'});
+  async selectCreator() {
+    const acc = await stdlib.newAccountFromMnemonic('order benefit case nothing critic bridge fresh young oval weasel lizard prosper aware trick blame coast shaft brother blade quick liberty skirt pizza abandon prosper');
+    const ctc = acc.contract(backend)
+    this.setState({view: 'Wrapper', ContentView: Creator, ready: 'false', acc, ctc});
   }
   selectBidder(){
     this.setState({view: 'Wrapper', ContentView: Bidder});
@@ -42,11 +44,11 @@ class Creator extends React.Component{
   }
   setMin(min) {this.setState({view: 'Deploy', min}); }
   async deploy() {
-    const ctc = this.props.acc.contract(backend);
-    this.setState({view: 'Deploying', ctc});
+    //const ctc = this.props.acc.contract(backend);
+    this.setState({view: 'Deploying'});
     this.min = stdlib.parseCurrency(this.state.min);
-    backend.Creator(ctc, this);
-    const ctcInfoStr = JSON.stringify(await ctc.getInfo(), null, 2);
+    backend.Creator(this.props.ctc, this);
+    const ctcInfoStr = JSON.stringify(await this.props.ctc.getInfo(), null, 2);
     this.setState({view: 'WaitingForAttacher', ctcInfoStr});
   }
   async getSale() {
@@ -61,7 +63,7 @@ class Creator extends React.Component{
   }
   auctionReady() {
     this.setState({ready: 'true'});
-    console.log(this.state.ctc);
+    console.log(this.props.ctc);
     console.log('Auction Ready');
   }
   seeBid(ad, am) {
@@ -84,14 +86,14 @@ class Bidder extends React.Component{
     this.state = {view: 'Attach'};
   }
   async attach(ctcInfoStr){
-    const ctc2 = this.props.acc.contract(backend, JSON.parse(ctcInfoStr));
+    const acc = await stdlib.getDefaultAccount();
+    const ctc2 = acc.contract(backend, JSON.parse(ctcInfoStr));
     const tBid = await ctc2.v.min();
     const mBid = stdlib.formatCurrency(stdlib.bigNumberToNumber(tBid[1]));
     const tId = await ctc2.v.nft();
     const nId = stdlib.bigNumberToNumber(tId[1]);
     const tcBid = await ctc2.v.currBid();
     const cBid = stdlib.formatCurrency(stdlib.bigNumberToNumber(tcBid[1]));
-    //console.log(`Current bid ${stdlib.formatCurrency(stdlib.bigNumberToNumber(cBid[1]))}`);
     this.setState({view: 'Bid', ctc2: ctc2, mBid, nId, cBid});
   }
   async bidFunc() {
