@@ -13,9 +13,11 @@ stdlib.setWalletFallback(stdlib.walletFallback({
   providerEnv: 'TestNet',
   MyAlgoConnect
 }));
+
 const {standardUnit} = stdlib;
-const defaults = {defaultFundAmt: '10', defaultMin: '5', standardUnit};
-const sleep = (milliseconds) => new Promise(resolve => setTimeout(resolve, milliseconds));
+const defaults = {deffaultFundAmt: '10', defaultMin: '5', standardUnit};
+
+
 class App extends React.Component{
   constructor(props){
     super(props);
@@ -27,10 +29,10 @@ class App extends React.Component{
   async start() {this.setState({view: 'DeployerOrAttacher'}); }
   async selectCreator() {
     const acc = await stdlib.newAccountFromMnemonic('order benefit case nothing critic bridge fresh young oval weasel lizard prosper aware trick blame coast shaft brother blade quick liberty skirt pizza abandon prosper');
-    const ctc = acc.contract(backend)
+    const ctc = acc.contract(backend);
     this.setState({view: 'Wrapper', ContentView: Creator, ready: 'false', acc, ctc});
   }
-  selectBidder(){
+  selectBidder() {
     this.setState({view: 'Wrapper', ContentView: Bidder});
   }
   render() {return renderView(this, AppViews); }
@@ -41,7 +43,7 @@ class Creator extends React.Component{
     super(props);
     this.state = {view: 'SetInfo'};
   }
-  setMin(min) {this.setState({view: 'Deploy', min}); }
+  setMin(min){this.setState({view: 'Deploy', min});}
   async deploy() {
     this.setState({view: 'Deploying'});
     this.min = stdlib.parseCurrency(this.state.min);
@@ -56,24 +58,24 @@ class Creator extends React.Component{
       minBid: stdlib.parseCurrency(this.state.min),
       lenInBlocks: 30,
     };
-    this.setState({amt: 0})
+    this.setState({amt: 0});
     return params;
   }
   auctionReady() {
     this.setState({ready: 'true'});
-    console.log(this.props.ctc);
-    console.log('Auction Ready');
+    console.log(`Auction Ready`);
   }
   seeBid(ad, am) {
     const addr = stdlib.formatAddress(ad);
     const amt = stdlib.formatCurrency(am);
-    this.setState({view: 'WaitingForAttacher', addr, amt});
+    this.setState()({view: 'WaitingForAttacher', addr, amt});
   }
   showOutcome(addr, amt){
     this.setState({
-      view: 'ShowOutcome', 
-      winAdd: stdlib.formatAddress(addr), 
-      highBid: stdlib.formatCurrency(amt)})
+      view: 'ShowOutcome',
+      winAdd: stdlib.formatAddress(addr),
+      highBid: stdlib.formatCurrency(amt)
+    });
   }
   render() {return renderView(this, DeployerViews); }
 }
@@ -86,22 +88,23 @@ class Bidder extends React.Component{
   async attach(ctcInfoStr){
     const acc = await stdlib.getDefaultAccount();
     const ctc2 = acc.contract(backend, JSON.parse(ctcInfoStr));
-    const viewBid = await ctc2.unsafeViews.min();
-    const viewMinBid = stdlib.formatCurrency(stdlib.bigNumberToNumber(viewBid));
+    const viewMinBid = await ctc2.unsafeViews.min();
+    const viewMB = stdlib.formatCurrency(stdlib.bigNumberToNumber(viewMinBid));
     const viewId = await ctc2.unsafeViews.nft();
-    const pId = stdlib.bigNumberToNumber(viewId);
-    const viewCurrentBid = await ctc2.unsafeViews.currBid();
+    const nId = stdlib.bigNumberToNumber(viewId);
+    const viewCurrentBid = await ctc2.unsafeViews.currentBid();
     const cBid = stdlib.formatCurrency(stdlib.bigNumberToNumber(viewCurrentBid));
-    this.setState({view: 'Bid', ctc2: ctc2, mBid: viewMinBid, nId: pId, cBid});
+    this.setState({view: 'Bid', ctc2: ctc2, viewMB, nId, cBid});
   }
-  async bidFunc() {
+  async bidFun() {
     const tctc = this.state.ctc2;
     const bid = stdlib.parseCurrency(this.state.bid);
     const [add, b] = await tctc.apis.Bidder.bid(bid);
     this.setState({
       view: 'WaitingForTurn',
       addr: stdlib.formatAddress(add),
-      bid: stdlib.formatCurrency(b) });
+      bid: stdlib.formatCurrency(b)
+    });
   }
   async setBid(bid){
     this.setState({view: 'WaitingForTurn', bid});
